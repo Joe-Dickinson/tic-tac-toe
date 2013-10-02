@@ -14,6 +14,7 @@ class Board
   # of marker, unless it has already been set.
   #
 	def mark(x, y, marker)
+		@board[y][x] = marker
 	end
 
 	# TODO - Have the board return each of the possible winning combinations.
@@ -44,6 +45,22 @@ class Game
 	#
 	def play
 		puts @board
+
+		puts "#{@turn}, Pick a coordiante between 0,0 and 2,2."
+		input = gets.chomp.strip
+		#binding.pry
+		coordinate = input.split(',')
+		@board.mark(coordinate[0].to_i, coordinate[1].to_i, @turn.marker)
+		#binding.pry
+
+		puts @board
+
+
+			# while coordinate.NaN?
+			# 	puts "Please pick two numbers seperated by a comma, eg 1,1"
+			# 	coordinate = gets.chomp.strip
+			# end
+
 
 
 
