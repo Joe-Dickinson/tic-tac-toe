@@ -1,6 +1,7 @@
 require 'pry'
 
 class Board
+	attr_accessor :board
 	def initialize
 		@board = [
 			%w(. . .),
@@ -23,6 +24,12 @@ class Board
 	# TODO - Add code to return the board as a String, so that it appears
 	# in a 3 x 3 grid
 	def to_s
+		s = ""
+	 board.each do |row|
+	 	s += row.join (" ") 
+	 	s += "\n"
+	 end
+	 s
 	end
 end
 
@@ -36,6 +43,12 @@ class Game
 	# TODO - The main game loop goes in here.
 	#
 	def play
+		puts @board
+
+
+
+
+
 		# While the game is still going on, do the following:
 			# 1. Show the board to the user
 			# 2. Prompt for an co-ordinate on the Board that we want to target
