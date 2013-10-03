@@ -4,9 +4,9 @@ class Board
 	attr_accessor :board
 	def initialize
 		@board = [
-			%w(. . .),
-			%w(. . .),
-			%w(. . .)
+			%w(1 2 3),
+			%w(4 5 6),
+			%w(7 8 9)
 		]
 	end
 
@@ -20,6 +20,27 @@ class Board
 	# TODO - Have the board return each of the possible winning combinations.
 	#
 	def each_winning_move
+		all_winning_moves = []
+		vertical_array = []
+		all_winning_moves << @board[0]
+		puts "board[0]: #{board[0]}"
+		all_winning_moves << @board[1] 
+		puts "board[1]: #{board[1]}"
+		all_winning_moves << @board[2]
+		vertical_array =  @board.transpose
+		puts "board[2]: #{board[2]}"
+		all_winning_moves << vertical_array[0]
+		puts "vertical_array [0]: #{vertical_array[0]}"
+		all_winning_moves << vertical_array[1]
+		puts "vertical_array [1]: #{vertical_array[1]}"
+		all_winning_moves << vertical_array[2]
+		puts "vertical_array [2]: #{vertical_array[2]}"
+		puts all_winning_moves #BUG FIXING	
+		all_winning_moves << [@board[0][0], @board[1][1], @board[2][2]]
+		all_winning_moves << [@board[0][2], @board[1][1], @board[2][0]]
+		puts all_winning_moves.join(", ") # BUG FIXING
+		puts "all winning moves: #{all_winning_moves}"
+		all_winning_moves
 	end
 
 	# TODO - Add code to return the board as a String, so that it appears
@@ -44,27 +65,16 @@ class Game
 	# TODO - The main game loop goes in here.
 	#
 	def play
+		#binding.pry
 		puts @board
 
 		puts "#{@turn}, Pick a coordiante between 0,0 and 2,2."
 		input = gets.chomp.strip
-		#binding.pry
 		coordinate = input.split(',')
 		@board.mark(coordinate[0].to_i, coordinate[1].to_i, @turn.marker)
-		#binding.pry
 
 		puts @board
-
-
-			# while coordinate.NaN?
-			# 	puts "Please pick two numbers seperated by a comma, eg 1,1"
-			# 	coordinate = gets.chomp.strip
-			# end
-
-
-
-
-
+		@board.each_winning_move
 
 		# While the game is still going on, do the following:
 			# 1. Show the board to the user
@@ -79,6 +89,7 @@ class Game
   # TODO - Return the next player's turn. I.e. not @turn but the other one.
   #
 	def next_turn
+		@turn = !@turn
 	end
 
 	# TODO - Return the winning Class if they have won, otherwise return nil.
