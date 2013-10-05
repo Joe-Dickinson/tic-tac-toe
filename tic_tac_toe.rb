@@ -23,23 +23,17 @@ class Board
 		all_winning_moves = []
 		vertical_array = []
 		all_winning_moves << @board[0]
-		puts "board[0]: #{board[0]}"
 		all_winning_moves << @board[1] 
-		puts "board[1]: #{board[1]}"
 		all_winning_moves << @board[2]
 		vertical_array =  @board.transpose
-		puts "board[2]: #{board[2]}"
 		all_winning_moves << vertical_array[0]
-		puts "vertical_array [0]: #{vertical_array[0]}"
 		all_winning_moves << vertical_array[1]
-		puts "vertical_array [1]: #{vertical_array[1]}"
 		all_winning_moves << vertical_array[2]
-		puts "vertical_array [2]: #{vertical_array[2]}"
-		puts all_winning_moves #BUG FIXING	
+		#puts all_winning_moves #BUG FIXING	
 		all_winning_moves << [@board[0][0], @board[1][1], @board[2][2]]
 		all_winning_moves << [@board[0][2], @board[1][1], @board[2][0]]
-		puts all_winning_moves.join(", ") # BUG FIXING
-		puts "all winning moves: #{all_winning_moves}"
+		#puts all_winning_moves.join(", ") # BUG FIXING
+		#puts "all winning moves: #{all_winning_moves}"
 		all_winning_moves
 	end
 
@@ -65,7 +59,6 @@ class Game
 	# TODO - The main game loop goes in here.
 	#
 	def play
-		#binding.pry
 		puts @board
 
 		puts "#{@turn}, Pick a coordiante between 0,0 and 2,2."
@@ -89,12 +82,24 @@ class Game
   # TODO - Return the next player's turn. I.e. not @turn but the other one.
   #
 	def next_turn
-		@turn = !@turn
+		#@turn = (@players - [@turn]).first
+		if @turn == Nought
+			@turn = Cross
+		elsif @turn == Cross
+			@turn = Nought
+		end
 	end
 
 	# TODO - Return the winning Class if they have won, otherwise return nil.
 	#
-	def winner
+	def winner #not complete#
+		# winning_moves = @board.all_winning_moves 
+		# winning_moves.each do |row|
+		# 	winning_moves[row] 
+		# 	if #
+
+
+
 		# Check each of the winning moves on the board, rows, cols and diagonals
 		# to see if a Player has filled a row of three consequtive squares
 	end
