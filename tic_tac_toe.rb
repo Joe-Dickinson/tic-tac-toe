@@ -4,9 +4,9 @@ class Board
 	attr_accessor :board
 	def initialize
 		@board = [
-			%w(1 2 3),
-			%w(4 5 6),
-			%w(7 8 9)
+			%w(. . .),
+			%w(. . .),
+			%w(. . .)
 		]
 	end
 
@@ -29,23 +29,22 @@ class Board
 		all_winning_moves << vertical_array[0]
 		all_winning_moves << vertical_array[1]
 		all_winning_moves << vertical_array[2]
-		#puts all_winning_moves #BUG FIXING	
 		all_winning_moves << [@board[0][0], @board[1][1], @board[2][2]]
 		all_winning_moves << [@board[0][2], @board[1][1], @board[2][0]]
-		#puts all_winning_moves.join(", ") # BUG FIXING
-		#puts "all winning moves: #{all_winning_moves}"
 		all_winning_moves
 	end
+
+
 
 	# TODO - Add code to return the board as a String, so that it appears
 	# in a 3 x 3 grid
 	def to_s
 		s = ""
-	 board.each do |row|
-	 	s += row.join (" ") 
-	 	s += "\n"
-	 end
-	 s
+		board.each do |row|
+		 	s += row.join (" ") 
+		 	s += "\n"
+		end
+		s
 	end
 end
 
@@ -68,6 +67,14 @@ class Game
 
 		puts @board
 		@board.each_winning_move
+		if winner != true 
+			# binding.pry
+			self.next_turn
+		else
+			puts "#{@turn} wins!"
+		end
+
+
 
 		# While the game is still going on, do the following:
 			# 1. Show the board to the user
@@ -82,27 +89,30 @@ class Game
   # TODO - Return the next player's turn. I.e. not @turn but the other one.
   #
 	def next_turn
-		#@turn = (@players - [@turn]).first
 		if @turn == Nought
 			@turn = Cross
 		elsif @turn == Cross
 			@turn = Nought
 		end
+		self.play
 	end
 
 	# TODO - Return the winning Class if they have won, otherwise return nil.
 	#
-	def winner #not complete#
-		# winning_moves = @board.all_winning_moves 
-		# winning_moves.each do |row|
-		# 	winning_moves[row] 
-		# 	if #
 
-
+	def winner 
+		stop = false 
+		@board.each_winning_move.each do |row|
+		 	if @turn.filled?(row)
+		 		stop = true
+		 		break
+		 	end
+		end
+		stop
+	end
 
 		# Check each of the winning moves on the board, rows, cols and diagonals
-		# to see if a Player has filled a row of three consequtive squares
-	end
+		# to see if a Player has filled a row of three consequtive squaress
 end
 
 class Player
