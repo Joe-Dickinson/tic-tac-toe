@@ -10,18 +10,18 @@ class Board
 		]
 	end
 
-  # TODO - Add code so that the array at co-ordinate x, y is set to the value
+  # The array at co-ordinate x, y is set to the value
   # of marker, unless it has already been set.
   #
 	def mark(x, y, marker)
 		if @board[x][y] != "."
 			puts "#{x}, #{y} is already taken by #{@board[x][y]}! Choose another position!"
 		else
-			@board[x][y] = marker #still returning "." even when filled in. Switched x and y. 
+			@board[x][y] = marker 
 		end
 	end
 
-	# TODO - Have the board return each of the possible winning combinations.
+	# The board returns each of the possible winning combinations.
 	#
 	def each_winning_move
 		all_winning_moves = []
@@ -40,7 +40,7 @@ class Board
 
 
 
-	# TODO - Add code to return the board as a String, so that it appears
+	# Returns the board as a String, so that it appears
 	# in a 3 x 3 grid
 	def to_s
 		s = ""
@@ -59,7 +59,7 @@ class Game
 		@turn = @players.sample
 	end
 
-	# TODO - The main game loop goes in here.
+	# The main game loop.
 	#
 	def play
 		9.times do 
@@ -69,7 +69,7 @@ class Game
 				input = gets.chomp.strip
 				coordinate = input.split(',')
 				marker = @board.mark(coordinate[0].to_i, coordinate[1].to_i, @turn.marker)
-				if marker != nil #break out of loop if @board.mark returns a value and continues game
+				if marker != nil #breaks out of loop if @board.mark returns a value and continues game
 					break
 				end
 			end 
@@ -81,17 +81,9 @@ class Game
 				puts "#{@turn} wins!"
 			end
 		end
-		# While the game is still going on, do the following:
-			# 1. Show the board to the user
-			# 2. Prompt for an co-ordinate on the Board that we want to target
-			# 3. Mark the board on the given square. If the input is invalid or already
-			# taken, go back to 1.
-			# 4. If we've got a winner, show the board and show a congratulations method.
-			# 5. Otherwise call next_turn and repeat.
-			# 6. How to detect a draw?
 	end
 
-  # TODO - Return the next player's turn. I.e. not @turn but the other one.
+  # Returns the next player's turn. 
   #
 	def next_turn
 		if @turn == Nought
@@ -101,7 +93,7 @@ class Game
 		end
 	end
 
-	# TODO - Return the winning Class if they have won, otherwise return nil.
+	# Returns the winning Class if they have won.
 	#
 
 	def winner 
@@ -114,9 +106,6 @@ class Game
 		end
 		stop
 	end
-
-		# Check each of the winning moves on the board, rows, cols and diagonals
-		# to see if a Player has filled a row of three consequtive squaress
 end
 
 class Player
