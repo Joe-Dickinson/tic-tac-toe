@@ -14,7 +14,11 @@ class Board
   # of marker, unless it has already been set.
   #
 	def mark(x, y, marker)
-		@board[y][x] = marker
+		if @board[x][y] != "."
+			puts "#{x}, #{y} is already taken by #{@board[x][y]}! Choose another position!"
+		else
+			@board[x][y] = marker #still returning "." even when filled in. Switched x and y. 
+		end
 	end
 
 	# TODO - Have the board return each of the possible winning combinations.
@@ -58,24 +62,25 @@ class Game
 	# TODO - The main game loop goes in here.
 	#
 	def play
-		puts @board
+		9.times do 
+			while true #repeats until a valid move is made
+				puts @board
+				puts "#{@turn}, Pick a coordiante between 0,0 and 2,2."
+				input = gets.chomp.strip
+				coordinate = input.split(',')
+				marker = @board.mark(coordinate[0].to_i, coordinate[1].to_i, @turn.marker)
+				if marker != nil #break out of loop if @board.mark returns a value and continues game
+					break
+				end
+			end 
 
-		puts "#{@turn}, Pick a coordiante between 0,0 and 2,2."
-		input = gets.chomp.strip
-		coordinate = input.split(',')
-		@board.mark(coordinate[0].to_i, coordinate[1].to_i, @turn.marker)
-
-		puts @board
-		@board.each_winning_move
-		if winner != true 
-			# binding.pry
-			self.next_turn
-		else
-			puts "#{@turn} wins!"
+			if winner != true 
+				self.next_turn
+			else
+				puts @board
+				puts "#{@turn} wins!"
+			end
 		end
-
-
-
 		# While the game is still going on, do the following:
 			# 1. Show the board to the user
 			# 2. Prompt for an co-ordinate on the Board that we want to target
@@ -94,7 +99,6 @@ class Game
 		elsif @turn == Cross
 			@turn = Nought
 		end
-		self.play
 	end
 
 	# TODO - Return the winning Class if they have won, otherwise return nil.
